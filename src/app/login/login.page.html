@@ -17,11 +17,11 @@
 <ion-grid>
   <ion-row>
     <ion-col offset="2" size="8">
-      <ion-input class="" label="Email" label-placement="floating" fill="outline" placeholder="Enter email"></ion-input>
+      <ion-input [(ngModel)]="credentials.username" type="email" label="Email" label-placement="floating" fill="outline" placeholder="Enter email"></ion-input>
       <br />
-      <ion-input label="Password" label-placement="floating" fill="outline" placeholder="Enter password"></ion-input>
+      <ion-input [(ngModel)]="credentials.password" type="password" label="Password" label-placement="floating" fill="outline" placeholder="Enter password"></ion-input>
       <br>
-      <ion-button>Login</ion-button>
+      <ion-button (click)="onLogin()">Login</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

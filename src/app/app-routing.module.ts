@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth-guard.guard';
+import { IonicRouteStrategy } from '@ionic/angular/util/ionic-router-reuse-strategy';
 
 const routes: Routes = [
   
@@ -9,10 +11,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+
   },
   {
     path: 'signup',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
   {
@@ -24,6 +28,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  providers: [
+    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthGuard, // Provide the AuthGuard here
   ],
   exports: [RouterModule]
 })
