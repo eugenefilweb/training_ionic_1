@@ -1,0 +1,39 @@
+<!-- product-list.component.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let product of products">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <h4>{{ product.product_name }}</h4>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- <form (ngSubmit)="addToCart(product)"> -->
+            <form>
+              <ion-item>
+                <ion-label>Quantity:</ion-label>
+                <ion-input type="number" min="1" [(ngModel)]="product.qty" name="qty"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="full" class="ion-margin-top">Add to Cart</ion-button>
+            </form>
+          </ion-card-content>
+          <ion-card-footer>
+            Date Created:
+             {{ product.date_created }}
+          </ion-card-footer>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

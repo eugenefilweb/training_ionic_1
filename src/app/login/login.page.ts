@@ -24,6 +24,7 @@ import { StorageService } from '../services/storage.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage {
   credentials = {
     username: '',

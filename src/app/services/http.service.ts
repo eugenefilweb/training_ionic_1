@@ -21,10 +21,19 @@ export class HttpService {
   //     return formData;
   //   }
 
+
 loginPost(serviceName: string, param: any) {
-    console.log('service');
+    // console.log('service');
     const url: any = environment.apiUrl + serviceName;
     return this.http.post(url, param);
   }
+
+getProducts(serviceName: string){
+
+  const url: any = environment.apiUrl + serviceName;
+  return this.http.get(url);
+}
+
+
 
 }

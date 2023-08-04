@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard.guard';
-import { IonicRouteStrategy } from '@ionic/angular/util/ionic-router-reuse-strategy';
+import { IonicRouteStrategy } from '@ionic/angular';
 
 const routes: Routes = [
   
@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'tab4',
     loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
   },
+  {
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then( m => m.ProductsPageModule)
+  },
  
 ];
 @NgModule({
@@ -30,7 +34,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   providers: [
-    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthGuard, // Provide the AuthGuard here
   ],
   exports: [RouterModule]

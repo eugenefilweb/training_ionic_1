@@ -12,7 +12,7 @@ export class StorageService {
     return await Preferences.set({key, value});
   }
 
-  async get(key: string) {
+  async get(key: string)  {
     return await Preferences.get({key});
   }
 }
