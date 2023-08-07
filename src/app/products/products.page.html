@@ -1,5 +1,4 @@
 <!-- product-list.component.html -->
-
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -19,12 +18,14 @@
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            <ion-img src="../../assets/dg-1.jpg"></ion-img>
             <!-- <form (ngSubmit)="addToCart(product)"> -->
-            <form>
+            <form (ngSubmit)="addToCart(product)">
               <ion-item>
                 <ion-label>Quantity:</ion-label>
                 <ion-input type="number" min="1" [(ngModel)]="product.qty" name="qty"></ion-input>
               </ion-item>
+              <!-- <ion-button (click)="navToCart()" expand="full" class="ion-margin-top">Add to Cart</ion-button> -->
               <ion-button type="submit" expand="full" class="ion-margin-top">Add to Cart</ion-button>
             </form>
           </ion-card-content>

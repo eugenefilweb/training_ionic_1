@@ -28,6 +28,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/products.service';
+import { StorageService } from '../services/storage.service';
+import { NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-products',
@@ -37,20 +40,39 @@ import { ProductService } from '../services/products.service';
 
 export class ProductsPage implements OnInit {
 
-  title = 'Product List';
+  title: string  = 'Product List';
   products: any[] = [];
+  cart: any[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService, 
+    private storageService: StorageService,
+    private navCtrl: NavController
+    ) {}
 
   ngOnInit() {
-    this.fetchProducts();
+    this.fetchProducts(); 
   }
 
   fetchProducts() {
    this.productService.getProducts().subscribe((res: any) => {
-    console.log(res);
-    
+    // console.log(res);
+    this.products = res.products;
    });
+  }
+
+  addToCart(product: any){
+    // console.log(product);
+    // console.log(product.qty);
+    // this.storageService.set('product', product);
+    this.cart.push({'product':product}); 
+    // this.storageService.get('product').then((res: any) => {
+    //   console.log(JSON.parse(res.value));
+    // }).catch((error) => {
+    //   console.log(error);
+    // });
+    console.log(this.cart);
+    // this.navCtrl.navigateForward('/tabs/cart');
   }
 
 }

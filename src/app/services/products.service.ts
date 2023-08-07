@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    const url: string = environment.apiUrl + '/products/get-products';
+    const url: string = environment.apiUrl + '/product/get-products';
     return this.http.get(url);
   }
 

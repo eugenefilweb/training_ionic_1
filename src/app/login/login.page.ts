@@ -49,7 +49,7 @@ export class LoginPage {
         console.log(response.user);
         // Handle successful login
         // You might want to store the access token or user details in the app
-        this.router.navigate(['/tab4']); // Navigate to the dashboard page or any other page after successful login
+        this.router.navigate(['/tabs/products']); // Navigate to the dashboard page or any other page after successful login
         this.storageService.set('userData', response.user);
       },
       error: (error) => {
