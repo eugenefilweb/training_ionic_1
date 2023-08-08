@@ -38,7 +38,10 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./products.page.scss'],
 })
 
+
 export class ProductsPage implements OnInit {
+  
+
 
   title: string  = 'Product List';
   products: any[] = [];
@@ -58,6 +61,7 @@ export class ProductsPage implements OnInit {
    this.productService.getProducts().subscribe((res: any) => {
     // console.log(res);
     this.products = res.products;
+    this.storageService.set('products', this.products);
    });
   }
 
@@ -65,14 +69,16 @@ export class ProductsPage implements OnInit {
     // console.log(product);
     // console.log(product.qty);
     // this.storageService.set('product', product);
-    this.cart.push({'product':product}); 
+    product = {...product, qty: product.qty ?? 0};
+    this.cart.push(product);
+    this.storageService.set('cart', this.cart);
     // this.storageService.get('product').then((res: any) => {
     //   console.log(JSON.parse(res.value));
     // }).catch((error) => {
     //   console.log(error);
     // });
-    console.log(this.cart);
-    // this.navCtrl.navigateForward('/tabs/cart');
+    // console.log(this.cart);
+    this.navCtrl.navigateForward('/tabs/cart');
   }
 
 }

@@ -7,21 +7,36 @@ import { StorageService } from '../services/storage.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+
   constructor(private router: Router, private storageService: StorageService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // const userData = this.storageService.get('userData') ?? null;
-    // console.log(userData);
-    const userData = null;
-    if (userData !== null) {
-      // User is authenticated, allow access
-      return true;
-    } else {
-      // User is not authenticated, redirect to the login page
-      this.router.navigate(['/login']);
-      return false;
-    }
+      
+    return this.storageService.get('userData').then((res: any) => {
+      if (res.value !== null && res.value !== undefined) {
+        try {
+          const userData = JSON.parse(res.value);
+          
+          if (userData !== null) {
+            // User is authenticated, allow access
+            return true;
+          } else {
+            // User data is invalid, redirect to the login page
+            this.router.navigate(['/tabs/login']);
+            return false;
+          }
+        } catch (error) {
+          // JSON parsing error, redirect to the login page
+          this.router.navigate(['/tabs/login']);
+          return false;
+        }
+      } else {
+        // User data is not available, redirect to the login page
+        this.router.navigate(['/tabs/login']);
+        return false;
+      }
+    });
   }
 }

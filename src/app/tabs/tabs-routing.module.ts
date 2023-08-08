@@ -10,14 +10,17 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
       },
       {
         path: 'products',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../products/products.module').then( m => m.ProductsPageModule)
       },
       {
         path: 'cart',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../cart/cart.module').then( m => m.CartPageModule)
       },
       // {
@@ -43,14 +46,14 @@ const routes: Routes = [
       // },
       {
         path: '',
-        redirectTo: '/tabs/products',
+        redirectTo: '/tabs/login',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/products',
+    redirectTo: '/tabs/login',
     pathMatch: 'full'
   }
 ];

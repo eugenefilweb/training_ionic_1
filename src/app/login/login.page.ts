@@ -46,7 +46,7 @@ export class LoginPage {
     // console.log(this.credentials.username);
     this.loginService.login(this.credentials).subscribe({
       next: (response) => {
-        console.log(response.user);
+        // console.log(response.user);
         // Handle successful login
         // You might want to store the access token or user details in the app
         this.router.navigate(['/tabs/products']); // Navigate to the dashboard page or any other page after successful login

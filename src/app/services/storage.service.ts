@@ -15,4 +15,5 @@ export class StorageService {
   async get(key: string)  {
     return await Preferences.get({key});
   }
+  
 }
