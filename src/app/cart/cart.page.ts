@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/products.service';
 import { StorageService } from '../services/storage.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -9,32 +9,64 @@ import { StorageService } from '../services/storage.service';
 })
 export class CartPage implements OnInit {
 
-  public alertButtons = ['OK'];
   title: string = 'Cart';
   products: any[] =[];
   cart: any[] = [];
+  total: number = 0;
+  cart_count: number = 0;
 
   constructor(
-    // private productService: ProductService,
     private storageService: StorageService,
     ) { }
 
   ngOnInit() {
-    // this.fetchProducts();
-    this.storageService.get('cart').then((res:any)=> {
+    this.getStorageCartAndProducts();
+  }
+
+  async getStorageCartAndProducts() {
+    await this.getStorageCart();
+    await this.getStorageProducts();
+    this.calculateTotal();
+    this.updateCartCount();
+  }
+
+  async getStorageCart(){
+    await this.storageService.get('cart').then((res:any)=> {
       this.cart = JSON.parse(res.value);
-      console.log(JSON.parse(res.value));
-    });
-    this.storageService.get('products').then((res:any)=> {
-      this.products = JSON.parse(res.value);
-      console.log(JSON.parse(res.value));
     });
   }
 
-  // fetchProducts() {
-  //   this.productService.getProducts().subscribe((res: any)=>{
-  //     this.products = res.products;
-  //   });
-  // }
+  async getStorageProducts(){
+    await this.storageService.get('products').then((res:any)=> {
+      this.products = JSON.parse(res.value);
+    });
+  }
+
+  async addToCart(product: any, form: NgForm): Promise<void> {
+    await this.getStorageCart();
+    product = {...product, qty: product.qty ?? 0};
+    this.cart.push(product);
+    this.storageService.set('cart', this.cart);
+    this.calculateTotal();
+    this.updateCartCount();
+    form.resetForm();
+  }
+
+  async removeItemFromCart(index: number): Promise<void> {
+    await this.getStorageCart();
+    this.cart.splice(index, 1);
+    this.storageService.set('cart', this.cart);
+    this.updateCartCount();
+    this.calculateTotal();
+  }
+
+  calculateTotal(): void {
+    this.total = this.cart.reduce((acc, item) => acc + (item.qty * item.price), 0);
+  }
+
+  updateCartCount(): void {
+    this.cart_count = this.cart.length;
+  }
+
 
 }

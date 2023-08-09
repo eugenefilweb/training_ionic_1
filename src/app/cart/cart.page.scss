@@ -1,0 +1,21 @@
+
+.circle {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  // left: 0px;
+  background-color: red; /* Change to desired background color */
+  color: white; /* Change to desired text color */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* Change to desired font size */
+}
+
+.custom-menu {
+  --width: 75vw; /* Set the width to 75% of the viewport width */
+}
+

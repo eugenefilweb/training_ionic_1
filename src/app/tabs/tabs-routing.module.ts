@@ -23,6 +23,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('../cart/cart.module').then( m => m.CartPageModule)
       },
+      {
+        path: 'checkout',
+        loadChildren: () => import('../checkout/checkout.module').then( m => m.CheckoutPageModule)
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard.module').then( m => m.DashboardPageModule)
+      },
       // {
       //   path: 'tab2',
       //   // canActivate: [AuthGuard],

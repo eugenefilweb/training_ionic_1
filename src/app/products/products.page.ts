@@ -41,8 +41,6 @@ import { NavController } from '@ionic/angular';
 
 export class ProductsPage implements OnInit {
   
-
-
   title: string  = 'Product List';
   products: any[] = [];
   cart: any[] = [];
